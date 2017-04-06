@@ -31,5 +31,12 @@
 
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="widget_empty">No stocks found.</string>
+    <string name="history">History</string>
+    <string name="summary">Summary</string>
+    <string name="add_stock_quote">Add stock quote</string>
+    <string name="stock_price_evolution">Stock price evolution</string>
 
 </resources>
