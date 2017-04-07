@@ -3,6 +3,7 @@ package com.udacity.stockhawk.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -196,6 +198,22 @@ public class DetailFragment extends Fragment {
                     return "";
                 }
             });
+
+            YAxis yAxis = stockHistoryChart.getAxisLeft();
+            IAxisValueFormatter yAxisFormatter = new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    if (getActivity() != null && isAdded())
+                        return getString(R.string.dollar_format, value);
+                    return String.valueOf(value);
+                }
+            };
+            yAxis.setValueFormatter(yAxisFormatter);
+            stockHistoryChart.getAxisRight().setValueFormatter(yAxisFormatter);
+            yAxis.setTextColor(tvPrice.getCurrentTextColor());
+            xAxis.setTextColor(tvPrice.getCurrentTextColor());
+            stockHistoryChart.getAxisRight().setTextColor(tvPrice.getCurrentTextColor());
+            stockHistoryChart.getLegend().setEnabled(false);
             stockHistoryChart.getDescription().setEnabled(false);
             stockHistoryChart.invalidate();
         }

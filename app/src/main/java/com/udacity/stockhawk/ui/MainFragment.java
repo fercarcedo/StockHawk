@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import timber.log.Timber;
 
 public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
@@ -149,8 +151,11 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         }
     }
 
+    @OnClick(R.id.fab)
     public void button(@SuppressWarnings("UnusedParameters") View view) {
-        new AddStockDialog().show(getActivity().getSupportFragmentManager(), "StockDialogFragment");
+        DialogFragment addStockDialog = new AddStockDialog();
+        addStockDialog.setTargetFragment(this, 1);
+        addStockDialog.show(getActivity().getSupportFragmentManager(), "StockDialogFragment");
     }
 
     void addStock(String symbol) {

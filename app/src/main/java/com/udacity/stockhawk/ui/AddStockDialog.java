@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +68,7 @@ public class AddStockDialog extends DialogFragment {
     }
 
     private void addStock() {
-        Fragment fragment = getParentFragment();
+        Fragment fragment = getTargetFragment();
         if (fragment instanceof MainFragment) {
             ((MainFragment) fragment).addStock(stock.getText().toString());
         }
