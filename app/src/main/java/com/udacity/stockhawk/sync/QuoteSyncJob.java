@@ -76,6 +76,17 @@ public final class QuoteSyncJob {
 
 
                 Stock stock = quotes.get(symbol);
+
+                if (stock == null) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            showQuoteError(context, null);
+                        }
+                    });
+                    continue; //Skip this quote
+                }
+
                 final StockQuote quote = stock.getQuote();
 
                 if (quote.getPrice() == null) {
@@ -83,7 +94,7 @@ public final class QuoteSyncJob {
                         @Override
                         public void run() {
                             PrefUtils.removeStock(context, quote.getSymbol());
-                            Toast.makeText(context, "Quote " + quote.getSymbol() + " doesn't exist", Toast.LENGTH_SHORT).show();
+                            showQuoteError(context, quote);
                         }
                     });
                     continue;
@@ -182,5 +193,12 @@ public final class QuoteSyncJob {
         }
     }
 
+    private static void showQuoteError(Context context, StockQuote quote) {
+        String quoteSymbol = "";
 
+        if (quote != null)
+            quoteSymbol = quote.getSymbol();
+
+        Toast.makeText(context, "Quote " + quoteSymbol + " doesn't exist", Toast.LENGTH_SHORT).show();
+    }
 }
